@@ -4,6 +4,12 @@ title: Welcome to Middleman
 - require 'uri'
 :javascript
   $(document).ready(function(){
+    var slidepausetime = 8000;
+    var line = new ProgressBar.Line('#progress-line',{
+     'duration': slidepausetime,
+      strokeWidth: .2,
+        color: '#44697D'
+      });
     $('.slider').bxSlider({
       "randomStart" : true,
       "auto" : true,
@@ -12,13 +18,28 @@ title: Welcome to Middleman
       "shrinkItems" : true,
       "pager" : false,
       "speed" : 300,
-      "pause" : 8000
+      "pause" : slidepausetime,
+      // show the bx slider after the page loads
+      'onSliderLoad': function(){
+          $('.bxSlider').css({'visibility':'visible'});
+          line.set(0);
+          line.animate(1.0);
+      },
+      'onSlideAfter': function(){
+          //line.set(1.0);
+      },
+      'onSlideBefore': function(){
+          line.set(0);
+          line.animate(1.0);
+      }
     });
   });
 .slider
   - sitemap.resources.select{|p| p.path.end_with?(".jpg") || p.path.end_with?(".png")}.shuffle.each do |item|
     %div.sliderimage
       = image_tag item.path
+#progress-line
+  &nbsp;
 = link_to(                                                  |
     "Read Documentation",                                   |
     "https://middlemanapp.com/basics/templating_language/", |

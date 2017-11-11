@@ -4,3 +4,4 @@
 .sass-cache
 build/
 /vendor
+/source/images/slideshow
