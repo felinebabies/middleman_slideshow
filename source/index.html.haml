@@ -35,7 +35,12 @@ title: Welcome to Middleman
     });
   });
 .slider
-  - sitemap.resources.select{|p| p.path.end_with?(".jpg") || p.path.end_with?(".png")}.shuffle.each do |item|
+  :ruby
+    # images/slideshowディレクトリ以下の画像のみを対象とする
+    imageitemarr = sitemap.resources.select do |p|
+      p.path.start_with?("images/slideshow") && (p.path.end_with?(".jpg") || p.path.end_with?(".png"))
+    end
+  - imageitemarr.shuffle.each do |item|
     %div.sliderimage
       = image_tag item.path
 #progress-line
