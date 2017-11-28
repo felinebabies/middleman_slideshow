@@ -24,6 +24,10 @@ title: Welcome to Middleman
           $('.bxSlider').css({'visibility':'visible'});
           line.set(0);
           line.animate(1.0);
+
+          //ウィンドウの高さに合わせて画像サイズを変更
+          var imgheight = $(window).height() - $("#progress-line").height() - 50;
+          $(".slider img").css("height", imgheight);
       },
       'onSlideAfter': function(){
           //line.set(1.0);
@@ -33,6 +37,7 @@ title: Welcome to Middleman
           line.animate(1.0);
       }
     });
+
   });
 .slider
   :ruby
